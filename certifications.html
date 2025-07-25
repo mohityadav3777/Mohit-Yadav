@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certifications - Mohit Yadav</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #1e3a8a;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #3b82f6;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #3b82f6;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: #3b82f6;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #1e3a8a;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .nav-links.mobile {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            flex-direction: column;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 3rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #64748b;
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        /* Certifications Timeline */
+        .timeline {
+            position: relative;
+            margin: 3rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: #3b82f6;
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: 45%;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: auto;
+            margin-left: 0;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #3b82f6;
+            border: 4px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px #3b82f6;
+            z-index: 2;
+        }
+
+        .cert-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .cert-title {
+            font-size: 1.4rem;
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .cert-provider {
+            color: #3b82f6;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .cert-description {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .cert-date {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .cert-status {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        .status-completed {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .status-in-progress {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .status-planned {
+            background: #e0f2fe;
+            color: #0284c7;
+        }
+
+        /* Current Learning Section */
+        .current-learning {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            margin-top: 4rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .current-learning-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .current-learning h3 {
+            color: #1e3a8a;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .current-learning p {
+            color: #64748b;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .learning-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .highlight-item {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .highlight-item h4 {
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-item p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+            }
+
+            .timeline-marker {
+                left: 20px;
+            }
+
+            .learning-highlights {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .main-content {
+                padding: 2rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .timeline-content {
+                padding: 1.5rem;
+                width: calc(100% - 40px);
+                margin-left: 40px !important;
+            }
+
+            .timeline::before {
+                left: 10px;
+            }
+
+            .timeline-marker {
+                left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Mohit Yadav</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="certifications.html" class="active">Certifications</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="mobile-menu" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links mobile" id="mobileNavLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="certifications.html">Certifications</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <h1 class="page-title">Certifications & Learning</h1>
+            <p class="page-subtitle">My journey of continuous learning and skill development in technology</p>
+
+            <!-- Timeline -->
+            <div class="timeline">
+                <!-- Certification 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="cert-icon">🌐</div>
+                        <h3 class="cert-title">Web Design Course</h3>
+                        <p class="cert-provider">Zillionsoftech Pvt Ltd, Rewari</p>
+                        <p class="cert-description">
+                            Comprehensive web design course covering HTML, CSS, JavaScript, responsive design principles, and modern web development practices. Learning under excellent instructors who make complex concepts easy to understand.
+                        </p>
+                        <span class="cert-status status-in-progress">In Progress</span>
+                        <p class="cert-date">2025 - Present</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- Education -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="cert-icon">🎓</div>
+                        <h3 class="cert-title">Bachelor of Technology (B.Tech)</h3>
+                        <p class="cert-provider">SAITM Gurugram</p>
+                        <p class="cert-description">
+                            Pursuing B.Tech degree with focus on computer science fundamentals, programming concepts, and emerging technologies. Building a strong foundation in software engineering and technology.
+                        </p>
+                        <span class="cert-status status-in-progress">In Progress</span>
+                        <p class="cert-date">2025 - 2029 (Expected)</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- Future Certifications -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="cert-icon">🤖</div>
+                        <h3 class="cert-title">AI/ML Fundamentals</h3>
+                        <p class="cert-provider">Planned Certification</p>
+                        <p class="cert-description">
+                            Planning to pursue comprehensive certification in artificial intelligence and machine learning fundamentals to deepen my understanding of these fascinating technologies.
+                        </p>
+                        <span class="cert-status status-planned">Planned</span>
+                        <p class="cert-date">2025 (Going On)</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- Additional Learning -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="cert-icon">💻</div>
+                        <h3 class="cert-title">Advanced JavaScript</h3>
+                        <p class="cert-provider">Self-Learning & Online Platforms</p>
+                        <p class="cert-description">
+                            Continuously learning advanced JavaScript concepts, ES6+ features, and modern development frameworks to enhance my web development skills.
+                        </p>
+                        <span class="cert-status status-in-progress">Ongoing</span>
+                        <p class="cert-date">2025 - Present</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+            </div>
+
+            <!-- Current Learning Section -->
+            <div class="current-learning">
+                <div class="current-learning-icon">📚</div>
+                <h3>Currently Learning</h3>
+                <p>I'm passionate about continuous learning and constantly expanding my skill set. Here's what I'm currently focused on:</p>
+                
+                <div class="learning-highlights">
+                    <div class="highlight-item">
+                        <h4>HTML & CSS</h4>
+                        <p>Building responsive, modern websites with semantic HTML and advanced CSS techniques.</p>
+                    </div>
+                    <div class="highlight-item">
+                        <h4>JavaScript</h4>
+                        <p>Mastering DOM manipulation, ES6+ features, and interactive web functionality.</p>
+                    </div>
+                    <div class="highlight-item">
+                        <h4>AI/ML Concepts</h4>
+                        <p>Exploring artificial intelligence and machine learning algorithms and applications.</p>
+                    </div>
+                    <div class="highlight-item">
+                        <h4>Software Development</h4>
+                        <p>Learning software engineering principles and best coding practices.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const mobileNavLinks = document.getElementById('mobileNavLinks');
+            
+            mobileMenu.classList.toggle('active');
+            mobileNavLinks.classList.toggle('active');
+        }
+
+        // Staggered animation for timeline items
+        document.addEventListener('DOMContentLoaded', () => {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach((item, index) => {
+                item.style.animationDelay = `${index * 0.3}s`;
+            });
+        });
+    </script>
+</body>
+</html>
